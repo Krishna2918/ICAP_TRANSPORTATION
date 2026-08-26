@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Track Shipment | ICAP Transport Inc.</title>
+<meta name="description" content="Track ICAP Transport shipments with live status, ETA, and milestone history."/>
+<link rel="icon" href="https://raw.githubusercontent.com/Krishna2918/ICAP_TRANSPORTATION/main/public/favicon.png"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<header class="site">
+  <div class="bar"></div>
+  <div class="wrap nav">
+    <a href="index.html"><img class="logo" src="https://raw.githubusercontent.com/Krishna2918/ICAP_TRANSPORTATION/main/public/logo.png" alt="ICAP Transport Inc."/></a>
+    <nav class="links"><a href="services.html" class="">Services</a><a href="tracking.html" class="active">Tracking</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a></nav>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="contact.html">Contact</a>
+      <a class="btn btn-outline" href="tracking.html">Track</a>
+      <a class="btn btn-primary" href="quote.html">Get a quote</a>
+    </div>
+    <button class="menu-btn" type="button" aria-label="Open menu" onclick="document.getElementById('drawer').classList.toggle('open')">☰</button>
+  </div>
+  <div id="drawer" class="drawer"><a href="services.html" class="">Services</a><a href="tracking.html" class="active">Tracking</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a><a href="quote.html">Get a quote</a></div>
+</header>
+<section class="pagehero"><div class="wrap">
+    <p class="eyebrow">Visibility</p>
+    <h1>Track your shipment</h1>
+    <div class="wave"></div>
+    <p class="muted">Enter your ICAP tracking number for live status, ETA, and milestone history. Try a sample load to see how it works.</p>
+  </div></section>
+  <section class="pad"><div class="wrap" style="max-width:46rem">
+    <form class="box" onsubmit="return lookup(event)">
+      <label for="tn">Tracking number</label>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem">
+        <input id="tn" placeholder="e.g. ICAP10482" style="flex:1;min-width:12rem;text-transform:uppercase;font-family:ui-monospace,monospace"/>
+        <button class="btn btn-primary" type="submit">Track</button>
+      </div>
+      <p id="terr" class="err" style="display:none"></p>
+      <p class="dim" style="margin:.8rem 0 .4rem;font-size:.8rem">Samples:
+        <button class="chip" type="button" onclick="fill('ICAP10482')">ICAP10482</button>
+        <button class="chip" type="button" onclick="fill('ICAP10991')">ICAP10991</button>
+        <button class="chip" type="button" onclick="fill('ICAP10012')">ICAP10012</button>
+      </p>
+    </form>
+    <div id="result" style="margin-top:1rem"></div>
+  </div></section>
+  <script>
+  const data={
+    ICAP10482:{service:'Full Truckload · Dry Van',status:'In transit',origin:'Mississauga, ON',destination:'Columbus, OH',eta:'Aug 7, 2026 · 14:00 ET',last:'Near Buffalo, NY · on schedule',events:[['Aug 5 · 08:12','Picked up','Loaded at shipper dock, 22 pallets sealed'],['Aug 5 · 11:40','Border cleared','Queenston–Lewiston, customs released'],['Aug 6 · 09:05','In transit','Westbound I-90 near Buffalo, NY'],['Aug 7 · 14:00','Scheduled delivery','Appointment window 13:00–15:00 ET']]},
+    ICAP10991:{service:'Expedited · Line Haul',status:'Out for delivery',origin:'Chicago, IL',destination:'Toronto, ON',eta:'Aug 6, 2026 · 16:30 ET',last:'Out for delivery · GTA hub',events:[['Aug 4 · 16:20','Picked up','Origin terminal Chicago South'],['Aug 5 · 22:10','Linehaul complete','Arrived GTA cross-dock'],['Aug 6 · 07:45','Out for delivery','Route 14 · appointment confirmed']]},
+    ICAP10012:{service:'Refrigerated · FTL',status:'Delivered',origin:'Montreal, QC',destination:'Boston, MA',eta:'Delivered Aug 3, 2026',last:'Delivered with clean POD',events:[['Aug 2 · 05:00','Picked up','Temp set 2°C · seal #A8821'],['Aug 2 · 19:30','In transit','I-89 corridor · temp stable'],['Aug 3 · 11:18','Delivered','Signed by R. Patel · no exceptions']]}
+  };
+  function fill(id){document.getElementById('tn').value=id;show(id)}
+  function lookup(e){e.preventDefault();show(document.getElementById('tn').value);return false}
+  function show(raw){
+    const id=(raw||'').trim().toUpperCase();
+    const err=document.getElementById('terr');
+    const box=document.getElementById('result');
+    if(!id){err.style.display='block';err.textContent='Enter a tracking number.';box.innerHTML='';return}
+    const s=data[id];
+    if(!s){err.style.display='block';err.textContent='No shipment found for “'+id+'”. Try a sample ID like ICAP10482.';box.innerHTML='';return}
+    err.style.display='none';
+    box.innerHTML='<div class="panel"><div style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap"><div><p class="dim" style="font-family:ui-monospace,monospace">'+id+'</p><h2 style="font-size:1.3rem">'+s.service+'</h2></div><span class="badge">'+s.status+'</span></div><div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));margin-top:1rem"><div class="card"><div class="dim" style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase">Origin</div><strong>'+s.origin+'</strong></div><div class="card"><div class="dim" style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase">Destination</div><strong>'+s.destination+'</strong></div><div class="card"><div class="dim" style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase">ETA</div><strong>'+s.eta+'</strong></div></div><p style="margin-top:1rem;background:var(--soft);color:var(--primary);border-radius:10px;padding:.7rem .9rem">'+s.last+'</p></div><div class="panel" style="margin-top:1rem"><h3>Milestone history</h3>'+s.events.map(ev=>'<p style="border-left:3px solid var(--accent);padding:.2rem 0 .2rem .8rem;margin:.8rem 0"><span class="dim" style="font-size:.75rem">'+ev[0]+'</span><br/><strong>'+ev[1]+'</strong><br/><span class="muted">'+ev[2]+'</span></p>').join('')+'</div>';
+  }
+  </script>
+<footer class="site">
+  <div class="wrap fg">
+    <div>
+      <div class="logo-on"><img src="https://raw.githubusercontent.com/Krishna2918/ICAP_TRANSPORTATION/main/public/logo-on-white.png" alt="ICAP Transport Inc." style="height:48px;width:auto"/></div>
+      <p class="muted" style="max-width:20rem;margin-top:1rem">ICAP Transport Inc. is a full-service trucking and logistics partner — asset-based truckload, specialty equipment, cross-border, and warehousing across Canada, the U.S., and Mexico.</p>
+    </div>
+    <div>
+      <p style="color:var(--sky);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Company</p>
+      <p><a href="services.html">Services</a><br/><a href="tracking.html">Tracking</a><br/><a href="about.html">About</a><br/><a href="contact.html">Contact</a><br/><a href="quote.html">Get a quote</a></p>
+    </div>
+    <div>
+      <p style="color:var(--sky);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Services</p>
+      <p><a href="services.html#truckload">Truckload Operations</a><br/><a href="services.html#dedicated">Dedicated Operations</a><br/><a href="services.html#dry-van">Dry Van</a><br/><a href="services.html#expedited">Expedited Services</a><br/><a href="services.html#just-in-time">Just-in-Time</a><br/><a href="services.html#cross-border">Cross-Border</a></p>
+    </div>
+    <div>
+      <p style="color:var(--sky);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Contact</p>
+      <p><a href="tel:+18004227847">1-800-422-7847</a><br/><a href="mailto:dispatch@icaptransport.com">dispatch@icaptransport.com</a><br/>Mississauga, ON<br/>Greater Toronto Area</p>
+    </div>
+  </div>
+  <div class="wrap" style="border-top:1px solid rgba(244,248,253,.16);margin-top:2.2rem;padding-top:1.2rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem">
+    <span>© 2026 ICAP Transport Inc. All rights reserved.</span>
+    <span>Mon–Fri 6:00–20:00 ET · Dispatch 24/7</span>
+  </div>
+</footer>
+</body></html>

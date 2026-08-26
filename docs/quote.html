@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Get a Quote | ICAP Transport Inc.</title>
+<meta name="description" content="Request a freight quote from ICAP Transport Inc. Same-business-day response on most lanes."/>
+<link rel="icon" href="https://raw.githubusercontent.com/Krishna2918/ICAP_TRANSPORTATION/main/public/favicon.png"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<header class="site">
+  <div class="bar"></div>
+  <div class="wrap nav">
+    <a href="index.html"><img class="logo" src="https://raw.githubusercontent.com/Krishna2918/ICAP_TRANSPORTATION/main/public/logo.png" alt="ICAP Transport Inc."/></a>
+    <nav class="links"><a href="services.html" class="">Services</a><a href="tracking.html" class="">Tracking</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a></nav>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="contact.html">Contact</a>
+      <a class="btn btn-outline" href="tracking.html">Track</a>
+      <a class="btn btn-primary" href="quote.html">Get a quote</a>
+    </div>
+    <button class="menu-btn" type="button" aria-label="Open menu" onclick="document.getElementById('drawer').classList.toggle('open')">☰</button>
+  </div>
+  <div id="drawer" class="drawer"><a href="services.html" class="">Services</a><a href="tracking.html" class="">Tracking</a><a href="about.html" class="">About</a><a href="contact.html" class="">Contact</a><a href="quote.html">Get a quote</a></div>
+</header>
+<section class="pagehero"><div class="wrap">
+    <p class="eyebrow">Pricing</p>
+    <h1>Request a freight quote</h1>
+    <div class="wave"></div>
+    <p class="muted">Tell us about your lane and freight. Our team responds the same business day with capacity and rates.</p>
+  </div></section>
+  <section class="pad"><div class="wrap" style="max-width:42rem">
+    <div id="quote-ok" class="panel" style="display:none;text-align:center">
+      <h2>Quote request received</h2>
+      <p class="muted" id="quote-ok-copy"></p>
+      <p><button class="btn btn-outline" type="button" onclick="location.reload()">Submit another request</button></p>
+    </div>
+    <form class="box" id="quote-form" onsubmit="return handleQuote(event)">
+      <div class="grid2">
+        <p><label for="q-name">Full name</label><input id="q-name" required autocomplete="name"/></p>
+        <p><label for="q-co">Company</label><input id="q-co" required autocomplete="organization"/></p>
+        <p><label for="q-email">Work email</label><input id="q-email" type="email" required autocomplete="email"/></p>
+        <p><label for="q-phone">Phone</label><input id="q-phone" type="tel" required autocomplete="tel"/></p>
+      </div>
+      <p><label for="q-svc">Service</label><select id="q-svc" required><option value="">Select a service</option><option value="truckload">Truckload Operations</option><option value="dedicated">Dedicated Operations</option><option value="dry-van">Dry Van</option><option value="expedited">Expedited Services</option><option value="just-in-time">Just-in-Time</option><option value="cross-border">Cross-Border</option><option value="line-haul">Line Haul</option><option value="refrigerated">Refrigerated Transportation</option><option value="heated">Heated Services</option><option value="flatbed">Flatbed</option><option value="step-deck">Step Deck</option><option value="open-board">Open Board FTL</option><option value="warehousing">Warehousing & Value Added</option><option value="cross-docking">Cross-Docking</option></select></p>
+      <div class="grid2">
+        <p><label for="q-orig">Origin</label><input id="q-orig" required placeholder="City, province/state"/></p>
+        <p><label for="q-dest">Destination</label><input id="q-dest" required placeholder="City, province/state"/></p>
+      </div>
+      <p><label for="q-fr">Freight details</label><input id="q-fr" required placeholder="Pallets, weight, dimensions, temperature"/></p>
+      <p><label for="q-notes">Notes (optional)</label><textarea id="q-notes" placeholder="Pickup windows, appointments, special handling…"></textarea></p>
+      <div style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:1rem">
+        <span class="dim" style="font-size:.75rem">Same-business-day response on most standard lanes.</span>
+        <button class="btn btn-primary btn-lg" type="submit">Submit request</button>
+      </div>
+    </form>
+  </div></section>
+  <script>
+  const params=new URLSearchParams(location.search);const svc=params.get('service');
+  if(svc){const el=document.getElementById('q-svc');if(el)el.value=svc;}
+  function handleQuote(e){
+    e.preventDefault();
+    const name=document.getElementById('q-name').value.trim();
+    const email=document.getElementById('q-email').value.trim();
+    const origin=document.getElementById('q-orig').value.trim();
+    const dest=document.getElementById('q-dest').value.trim();
+    document.getElementById('quote-form').style.display='none';
+    document.getElementById('quote-ok').style.display='block';
+    document.getElementById('quote-ok-copy').textContent='Thanks, '+name.split(' ')[0]+'. We will review '+origin+' → '+dest+' and follow up at '+email+' shortly.';
+    return false;
+  }
+  </script>
+<footer class="site">
+  <div class="wrap fg">
+    <div>
+      <div class="logo-on"><img src="https://raw.githubusercontent.com/Krishna2918/ICAP_TRANSPORTATION/main/public/logo-on-white.png" alt="ICAP Transport Inc." style="height:48px;width:auto"/></div>
+      <p class="muted" style="max-width:20rem;margin-top:1rem">ICAP Transport Inc. is a full-service trucking and logistics partner — asset-based truckload, specialty equipment, cross-border, and warehousing across Canada, the U.S., and Mexico.</p>
+    </div>
+    <div>
+      <p style="color:var(--sky);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Company</p>
+      <p><a href="services.html">Services</a><br/><a href="tracking.html">Tracking</a><br/><a href="about.html">About</a><br/><a href="contact.html">Contact</a><br/><a href="quote.html">Get a quote</a></p>
+    </div>
+    <div>
+      <p style="color:var(--sky);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Services</p>
+      <p><a href="services.html#truckload">Truckload Operations</a><br/><a href="services.html#dedicated">Dedicated Operations</a><br/><a href="services.html#dry-van">Dry Van</a><br/><a href="services.html#expedited">Expedited Services</a><br/><a href="services.html#just-in-time">Just-in-Time</a><br/><a href="services.html#cross-border">Cross-Border</a></p>
+    </div>
+    <div>
+      <p style="color:var(--sky);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700">Contact</p>
+      <p><a href="tel:+18004227847">1-800-422-7847</a><br/><a href="mailto:dispatch@icaptransport.com">dispatch@icaptransport.com</a><br/>Mississauga, ON<br/>Greater Toronto Area</p>
+    </div>
+  </div>
+  <div class="wrap" style="border-top:1px solid rgba(244,248,253,.16);margin-top:2.2rem;padding-top:1.2rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem">
+    <span>© 2026 ICAP Transport Inc. All rights reserved.</span>
+    <span>Mon–Fri 6:00–20:00 ET · Dispatch 24/7</span>
+  </div>
+</footer>
+</body></html>
