@@ -5,13 +5,10 @@ import { navLinks } from "@/lib/icap-data";
 import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useCurrentUserState } from "@/lib/auth/use-current-user";
-import { UserButton } from "@/lib/auth/gates";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const { user, isPending } = useCurrentUserState();
 
   return (
     <header className="sticky top-[var(--grok-banner-h,0px)] z-40 border-b border-border bg-bg-elevated/95 backdrop-blur-md">
@@ -50,15 +47,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          {isPending ? (
-            <div className="h-9 w-20 animate-pulse rounded-[var(--radius-sm)] bg-bg-subtle" />
-          ) : user ? (
-            <UserButton />
-          ) : (
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/login">Sign in</Link>
-            </Button>
-          )}
+          <Button asChild variant="ghost" size="sm">
+            <Link to="/contact">Contact</Link>
+          </Button>
           <Button asChild variant="outline" size="sm">
             <Link to="/tracking">Track</Link>
           </Button>
@@ -102,18 +93,11 @@ export function SiteHeader() {
                   Get a quote
                 </Link>
               </Button>
-              {!isPending && !user && (
-                <Button asChild variant="ghost" className="w-full">
-                  <Link to="/login" onClick={() => setOpen(false)}>
-                    Sign in
-                  </Link>
-                </Button>
-              )}
-              {!isPending && user && (
-                <div className="px-1 py-2">
-                  <UserButton />
-                </div>
-              )}
+              <Button asChild variant="ghost" className="w-full">
+                <Link to="/contact" onClick={() => setOpen(false)}>
+                  Contact
+                </Link>
+              </Button>
             </div>
           </nav>
         </div>

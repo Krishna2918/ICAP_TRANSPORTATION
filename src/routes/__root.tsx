@@ -4,7 +4,6 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import { AuthProvider } from "@/lib/auth/provider";
 import { CreatedWithGrokBanner } from "@/components/created-with-grok-banner";
 import { asset } from "@/lib/assets";
 import appCss from "../styles.css?url";
@@ -50,9 +49,7 @@ function RootDocument() {
       </head>
       <body>
         <CreatedWithGrokBanner />
-        <AuthProvider>
-          <Outlet />
-        </AuthProvider>
+        <Outlet />
         <Scripts />
       </body>
     </html>
