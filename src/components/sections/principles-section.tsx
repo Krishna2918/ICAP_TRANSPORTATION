@@ -1,4 +1,5 @@
 import { principles } from "@/lib/icap-data";
+import { asset } from "@/lib/assets";
 
 export function PrinciplesSection() {
   return (
@@ -7,7 +8,7 @@ export function PrinciplesSection() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="order-2 overflow-hidden rounded-[var(--radius-xl)] border border-border shadow-[var(--shadow-md)] lg:order-1">
             <img
-              src="/cargo-load.jpg"
+              src={asset("/cargo-load.jpg")}
               alt="Cargo loaded on pallets inside an ICAP trailer"
               className="aspect-[4/3] w-full object-cover"
             />

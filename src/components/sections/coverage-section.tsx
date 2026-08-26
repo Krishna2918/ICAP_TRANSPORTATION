@@ -1,4 +1,5 @@
 import { corridors } from "@/lib/icap-data";
+import { asset } from "@/lib/assets";
 
 export function CoverageSection() {
   return (
@@ -20,7 +21,7 @@ export function CoverageSection() {
             </p>
             <div className="mt-8 overflow-hidden rounded-[var(--radius-xl)] border border-border-ink">
               <img
-                src="/warehouse.jpg"
+                src={asset("/warehouse.jpg")}
                 alt="ICAP distribution center and container yard"
                 className="aspect-[16/10] w-full object-cover"
               />

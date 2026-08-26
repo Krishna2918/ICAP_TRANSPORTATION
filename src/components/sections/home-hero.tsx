@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { company, stats } from "@/lib/icap-data";
+import { asset } from "@/lib/assets";
 import { Button } from "@/components/ui/button";
 
 export function HomeHero() {
@@ -45,7 +46,7 @@ export function HomeHero() {
           <div className="relative">
             <div className="overflow-hidden rounded-[var(--radius-xl)] border border-border shadow-[var(--shadow-lg)]">
               <img
-                src="/fleet.jpg?v=4"
+                src={asset("/fleet.jpg")}
                 alt="ICAP Transport fleet standing in a file — trucks with ICAP on the trailers"
                 className="aspect-[16/10] w-full object-cover object-center"
               />

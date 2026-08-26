@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { CreatedWithGrokBanner } from "@/components/created-with-grok-banner";
+import { asset } from "@/lib/assets";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "ICAP Transport Inc.";
@@ -35,7 +36,7 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "icon", href: asset("/favicon.png"), type: "image/png" },
     ],
   }),
   component: RootDocument,

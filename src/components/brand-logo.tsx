@@ -1,3 +1,4 @@
+import { asset } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 export function BrandLogo({
@@ -11,7 +12,7 @@ export function BrandLogo({
 }) {
   return (
     <img
-      src={onDark ? "/logo-on-white.png?v=3" : "/logo.png?v=3"}
+      src={asset(onDark ? "/logo-on-white.png" : "/logo.png")}
       alt="ICAP Transport Inc."
       className={cn("block object-contain object-left", className)}
       style={{ height, width: "auto", maxHeight: height }}
