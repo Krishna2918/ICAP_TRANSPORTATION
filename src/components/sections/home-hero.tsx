@@ -45,8 +45,8 @@ export function HomeHero() {
           <div className="relative">
             <div className="overflow-hidden rounded-[var(--radius-xl)] border border-border shadow-[var(--shadow-lg)]">
               <img
-                src="/fleet.jpg"
-                alt="ICAP Transport fleet — multiple trucks with ICAP on the trailers"
+                src="/fleet.jpg?v=4"
+                alt="ICAP Transport fleet standing in a file — trucks with ICAP on the trailers"
                 className="aspect-[16/10] w-full object-cover object-center"
               />
             </div>
